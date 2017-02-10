@@ -87,16 +87,12 @@
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Class.vb" />
-    <None Include="QueryFirstQueryVBTemplate.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <VSTemplate Include="QueryFirstQueryVBTemplate.vstemplate" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Carrot.ico" />
-    <Compile Include="Query.gen.vb" />
-    <Compile Include="QueryResults.vb" />
+    <None Include="Query.gen.vb" />
+    <None Include="QueryResults.vb" />
     <None Include="Query.sql" />
   </ItemGroup>
   <ItemGroup>

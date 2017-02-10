@@ -108,6 +108,7 @@
     <Compile Include="Root.cs" />
     <Compile Include="TinyIoC.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="WizardImplementationVbClass.cs" />
     <Compile Include="WizardImplementationClass.cs" />
     <Compile Include="WrapperClassMaker.cs" />
   </ItemGroup>
@@ -261,6 +262,13 @@
     <ProjectReference Include="..\QueryFirstQueryTemplate\QueryFirstQueryTemplate.csproj">
       <Project>{2D6B875E-27AB-401A-8D5F-0F085DE4CE0E}</Project>
       <Name>QueryFirstQueryTemplate</Name>
+      <VSIXSubPath>ItemTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryFirstQueryVBTemplate\QueryFirstQueryVBTemplate.vbproj">
+      <Project>{DB9DCC19-523D-4128-84F8-DF734B536112}</Project>
+      <Name>QueryFirstQueryVBTemplate</Name>
       <VSIXSubPath>ItemTemplates</VSIXSubPath>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
