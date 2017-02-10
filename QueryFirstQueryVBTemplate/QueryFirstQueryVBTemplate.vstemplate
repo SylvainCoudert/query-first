@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <DefaultName>Query.sql</DefaultName>
+    <Name>QueryFirst Query</Name>
+    <Description>Query and generated wrapper class</Description>
+    <ProjectType>VisualBasic</ProjectType>
+    <SortOrder>10</SortOrder>
+    <Icon>Carrot.ico</Icon>
+    <TemplateID>6d0068d7-aa48-413d-abda-97bc46502fac</TemplateID>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+  </TemplateData>
+  <TemplateContent>
+    <References>
+      <Reference>
+        <Assembly>System</Assembly>
+      </Reference>
+    </References>
+    <ProjectItem ReplaceParameters="true" ItemType="EmbeddedResource">Query.sql</ProjectItem>
+    <ProjectItem ReplaceParameters="true" TargetFileName="$fileinputname$.gen.vb">Query.gen.vb</ProjectItem>
+    <ProjectItem ReplaceParameters="true" TargetFileName="$fileinputname$Results.vb">QueryResults.vb</ProjectItem>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>QueryFirst, Version=1.0.0.0, Culture=neutral, PublicKeyToken=4688a60b10e39f04</Assembly>
+    <FullClassName>QueryFirst.WizardImplementation</FullClassName>
+  </WizardExtension>
+</VSTemplate>
