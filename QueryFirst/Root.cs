@@ -14,6 +14,7 @@ using System.Drawing;
 using TinyIoC;
 using System.Timers;
 using QueryFirst.TypeMappings;
+using QueryFirst.CodeProcessors;
 
 namespace QueryFirst
 {
@@ -34,6 +35,7 @@ namespace QueryFirst
         private EnvDTE.Events myEvents;
         private EnvDTE.DocumentEvents myDocumentEvents;
         ProjectItemsEvents CSharpProjectItemsEvents;
+        ProjectItemsEvents VisualBasicProjectItemsEvents;
         #endregion
         // constructor
         private Root(DTE dte)
@@ -44,7 +46,9 @@ namespace QueryFirst
             myDocumentEvents.DocumentSaved += myDocumentEvents_DocumentSaved;
             myDocumentEvents.DocumentOpened += MyDocumentEvents_DocumentOpened;
             CSharpProjectItemsEvents = (ProjectItemsEvents)dte.Events.GetObject("CSharpProjectItemsEvents");
+            VisualBasicProjectItemsEvents = (ProjectItemsEvents)dte.Events.GetObject("VisualBasicProjectItemsEvents");
             CSharpProjectItemsEvents.ItemRenamed += CSharpItemRenamed;
+            VisualBasicProjectItemsEvents.ItemRenamed += VisualBasicItemRenamed;
             myEvents.SolutionEvents.Opened += SolutionEvents_Opened;
             myEvents.BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
 
@@ -224,6 +228,38 @@ namespace QueryFirst
                         if (item.Name == OldName.Replace(".sql", "Results.cs"))
                         {
                             item.Name = renamedQuery.Name.Replace(".sql", "Results.cs");
+                            fuxed++;
+                        }
+                        if (fuxed == 2)
+                        {
+                            // regenerate query in new location to get new path to manifest stream.
+                            new Conductor(renamedQuery.Document).Process();
+                            return; //2 files to rename, then we're finished.
+                        }
+                    }
+                }
+            }
+        }
+        void VisualBasicItemRenamed(ProjectItem renamedQuery, string OldName)
+
+        {
+            if (OldName.EndsWith(".sql"))
+            {
+                int fuxed = 0;
+                foreach (ProjectItem item in renamedQuery.ProjectItems)
+                {
+                    string folder = Path.GetDirectoryName((string)renamedQuery.Properties.Item("FullPath").Value);
+                    if (((string)item.Properties.Item("FullPath").Value).StartsWith(folder))
+                    {
+                        if (item.Name == OldName.Replace(".sql", ".gen.vb"))
+                        {
+                            item.Name = renamedQuery.Name.Replace(".sql", ".gen.vb");
+
+                            fuxed++;
+                        }
+                        if (item.Name == OldName.Replace(".sql", "Results.vb"))
+                        {
+                            item.Name = renamedQuery.Name.Replace(".sql", "Results.vb");
                             fuxed++;
                         }
                         if (fuxed == 2)

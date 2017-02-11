@@ -1,4 +1,4 @@
-﻿namespace QueryFirst
+﻿namespace QueryFirst.CodeProcessors
 {
     using System.Collections.Generic;
     /// <summary>

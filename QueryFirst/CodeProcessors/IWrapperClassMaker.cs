@@ -1,4 +1,4 @@
-﻿namespace QueryFirst
+﻿namespace QueryFirst.CodeProcessors
 {
     /// <summary>
     /// Generates the wrapper class for a sql query.

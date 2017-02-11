@@ -12,8 +12,10 @@ namespace QueryFirst
     public class QueryParamInfo : IQueryParamInfo
     {
         public string CSName { get; set; }
+        public string VBName { get; set; }
         //public string SqlTypeAndLength { get; private set; }
         public string CSType { get; set; }
+        public string VBType { get; set; }
         //public bool ExplicitlyDeclared { get; set; }
         public string DbName { get; set; }
         public string DbType { get; set; }

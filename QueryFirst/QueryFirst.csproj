@@ -58,6 +58,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BackwardCompatibility.cs" />
+    <Compile Include="CodeProcessors\CSharpProcessor.cs" />
+    <Compile Include="CodeProcessors\ICodeProcessor.cs" />
+    <Compile Include="CodeProcessors\ProcessorFactory.cs" />
+    <Compile Include="CodeProcessors\UnsupportedProjectTypeException.cs" />
+    <Compile Include="CodeProcessors\VbProcessor.cs" />
+    <Compile Include="CodeProcessors\WrapperVisualBasicClassMaker.cs" />
     <Compile Include="DesignTimeConnectionString.cs" />
     <Compile Include="Providers\IProvider.cs" />
     <Compile Include="Providers\MySqlClient.cs" />
@@ -80,9 +86,9 @@
       <DependentUpon>ScaffoldUpdate.sql</DependentUpon>
     </Compile>
     <Compile Include="IQueryParamInfo.cs" />
-    <Compile Include="ISignatureMaker.cs" />
+    <Compile Include="CodeProcessors\ISignatureMaker.cs" />
     <Compile Include="SchemaFetching\ISchemaFetcher.cs" />
-    <Compile Include="IWrapperClassMaker.cs" />
+    <Compile Include="CodeProcessors\IWrapperClassMaker.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -98,19 +104,19 @@
     <Compile Include="InsertsAndUpdates\ScaffoldInsertResults.cs">
       <DependentUpon>ScaffoldInsert.sql</DependentUpon>
     </Compile>
-    <Compile Include="SignatureMaker.cs" />
+    <Compile Include="CodeProcessors\SignatureMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultFieldDetails.cs" />
     <Compile Include="QueryFirstCmd.cs" />
     <Compile Include="QueryFirstCmdPackage.cs" />
     <Compile Include="Conductor.cs" />
-    <Compile Include="ResultClassMaker.cs" />
+    <Compile Include="CodeProcessors\ResultClassMaker.cs" />
     <Compile Include="Root.cs" />
     <Compile Include="TinyIoC.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="WizardImplementationVbClass.cs" />
     <Compile Include="WizardImplementationClass.cs" />
-    <Compile Include="WrapperClassMaker.cs" />
+    <Compile Include="CodeProcessors\WrapperCSharpClassMaker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

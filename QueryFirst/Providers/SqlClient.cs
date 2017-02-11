@@ -57,11 +57,14 @@ namespace QueryFirst.Providers
             }
             string normalizedType;
             var csType = TypeMapDB2CS(typeOnly, out normalizedType);
+            var vbType = TypeMapDB2VB(typeOnly, out normalizedType);
 
             qp.CSType = csType;
+            qp.VBType = vbType;
             qp.DbType = normalizedType;
             qp.Length = len;
             qp.CSName = name;
+            qp.VBName = name;
             qp.DbName = '@' + name;
         }
         public virtual List<IQueryParamInfo> FindUndeclaredParameters(string queryText)
@@ -199,6 +202,112 @@ namespace QueryFirst.Providers
                 case "int":
                     DBTypeNormalized = "Int";
                     return nullable ? "int?" : "int";
+                case "char":
+                    DBTypeNormalized = "Char";
+                    return "string";
+                case "nchar":
+                    DBTypeNormalized = "NChar";
+                    return "string";
+                case "ntext":
+                    DBTypeNormalized = "NText";
+                    return "string";
+                case "nvarchar":
+                    DBTypeNormalized = "NVarChar";
+                    return "string";
+                case "varchar":
+                    DBTypeNormalized = "VarChar";
+                    return "string";
+                case "text":
+                    DBTypeNormalized = "Text";
+                    return "string";
+                case "xml":
+                    DBTypeNormalized = "Xml";
+                    return "string";
+                case "sql_variant":
+                    DBTypeNormalized = "Variant";
+                    return "object";
+                case "variant":
+                    DBTypeNormalized = "Variant";
+                    return "object";
+                case "udt":
+                    DBTypeNormalized = "Udt";
+                    return "object";
+                case "structured":
+                    DBTypeNormalized = "Structured";
+                    return "DataTable";
+                case "uniqueidentifier":
+                    DBTypeNormalized = "UniqueIdentifier";
+                    return "Guid";
+                default:
+                    throw new Exception("type not matched : " + DBType);
+                    // todo : keep going here. old method had a second switch on ResultFieldDetails.DataType to catch a bunch of never seen types
+
+            }
+        }
+        public virtual string TypeMapDB2VB(string DBType, out string DBTypeNormalized, bool nullable = true)
+        {
+            switch (DBType.ToLower())
+            {
+                case "bigint":
+                    DBTypeNormalized = "BigInt";
+                    return nullable ? "long?" : "long";
+                case "binary":
+                    DBTypeNormalized = "Binary";
+                    return "byte[]";
+                case "image":
+                    DBTypeNormalized = "Image";
+                    return "byte[]";
+                case "timestamp":
+                    DBTypeNormalized = "Timestamp";
+                    return "byte[]";
+                case "varbinary":
+                    DBTypeNormalized = "Varbinary";
+                    return "byte[]";
+                case "bit":
+                    DBTypeNormalized = "Bit";
+                    return nullable ? "bool?" : "bool";
+                case "date":
+                    DBTypeNormalized = "Date";
+                    return nullable ? "DateTime?" : "DateTime";
+                case "datetime":
+                    DBTypeNormalized = "DateTime";
+                    return nullable ? "DateTime?" : "DateTime";
+                case "datetime2":
+                    DBTypeNormalized = "DateTime2";
+                    return nullable ? "DateTime?" : "DateTime";
+                case "smalldatetime":
+                    DBTypeNormalized = "SmallDateTime";
+                    return nullable ? "DateTime?" : "DateTime";
+                case "time":
+                    DBTypeNormalized = "Time";
+                    return nullable ? "DateTime?" : "DateTime";
+                case "datetimeoffset":
+                    DBTypeNormalized = "DateTimeOffset";
+                    return nullable ? "DateTimeOffset?" : "DateTimeOffset";
+                case "decimal":
+                    DBTypeNormalized = "Decimal";
+                    return nullable ? "decimal?" : "decimal";
+                case "money":
+                    DBTypeNormalized = "Money";
+                    return nullable ? "decimal?" : "decimal";
+                case "smallmoney":
+                    DBTypeNormalized = "SmallMoney";
+                    return nullable ? "decimal?" : "decimal";
+                case "float":
+                    DBTypeNormalized = "Float";
+                    return nullable ? "double?" : "double";
+                case "real":
+                    DBTypeNormalized = "Real";
+                    return nullable ? "float?" : "float";
+                case "smallint":
+                    DBTypeNormalized = "SmallInt";
+                    return nullable ? "short?" : "short";
+                case "tinyint":
+                    DBTypeNormalized = "TinyInt";
+                    return nullable ? "byte?" : "byte";
+                case "int":
+                    DBTypeNormalized = "Int";
+                    return nullable ? "Integer?" : "Integer";
                 case "char":
                     DBTypeNormalized = "Char";
                     return "string";

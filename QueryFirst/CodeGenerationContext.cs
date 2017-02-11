@@ -9,11 +9,42 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Configuration;
 using QueryFirst.TypeMappings;
+using QueryFirst.CodeProcessors;
 
 namespace QueryFirst
 {
     public class CodeGenerationContext
     {
+        #region Code Processors
+        private ICodeProcessor _codeProcessor;
+        public ICodeProcessor CodeProcessor
+        {
+            get
+            {
+                if(_codeProcessor == null)
+                {
+                    _codeProcessor = WrappersFactory.GetProcessor(config.Project.Kind);
+                }
+                return _codeProcessor;
+            }
+        }
+
+        protected IProvider provider;
+        public IProvider Provider { get { return provider; } }
+
+        protected ISignatureMaker _signatureMaker;
+        public ISignatureMaker SignatureMaker
+        {
+            get
+            {
+                if (_signatureMaker == null)
+                {
+                    _signatureMaker = WrappersFactory.GetSignatureMaker(config.Project.Kind);
+                }
+                return _signatureMaker;
+            }
+        }
+        #endregion
         protected TinyIoCContainer tiny;
         private PutCodeHere _putCodeHere;
         public PutCodeHere PutCodeHere { get { return _putCodeHere; } }
@@ -21,8 +52,6 @@ namespace QueryFirst
         public DTE Dte { get { return dte; } }
         protected Document queryDoc;
         public Document QueryDoc { get { return queryDoc; } }
-        protected IProvider provider;
-        public IProvider Provider { get { return provider; } }
         protected Query query;
         public Query Query { get { return query; } }
         protected string baseName;
@@ -58,6 +87,18 @@ namespace QueryFirst
                 return baseName;
             }
         }
+
+        /// <summary>
+        /// Construct TheInterface Name from the baseName
+        /// </summary>
+        public string InterfaceName
+        {
+            get
+            {
+                return "I" + baseName;
+            }
+        }
+
         /// <summary>
         /// The directory containing the 3 files for this query, with trailing slash
         /// </summary>
@@ -91,7 +132,7 @@ namespace QueryFirst
         {
             get
             {
-                return CurrDir + BaseName + ".gen.cs";
+                return CurrDir + BaseName + ".gen." + CodeProcessor.GetExtension();
             }
         }
         protected string userPartialClass;
@@ -104,9 +145,9 @@ namespace QueryFirst
             get
             {
                 if (string.IsNullOrEmpty(userPartialClass))
-                    userPartialClass = File.ReadAllText(CurrDir + BaseName + "Results.cs");
+                    userPartialClass = File.ReadAllText(CurrDir + BaseName + "Results." + CodeProcessor.GetExtension());
                 if (resultClassName == null)
-                    resultClassName = Regex.Match(userPartialClass, "(?im)partial class (\\S+)").Groups[1].Value;
+                    resultClassName = Regex.Match(userPartialClass, CodeProcessor.GetResultClassRegex()).Groups[1].Value;
                 return resultClassName;
 
             }
@@ -119,8 +160,8 @@ namespace QueryFirst
             get
             {
                 if (string.IsNullOrEmpty(userPartialClass))
-                    userPartialClass = File.ReadAllText(CurrDir + BaseName + "Results.cs");
-                return Regex.Match(userPartialClass, "(?im)^namespace (\\S+)").Groups[1].Value;
+                    userPartialClass = File.ReadAllText(CurrDir + BaseName + "Results." + CodeProcessor.GetExtension());
+                return Regex.Match(userPartialClass, CodeProcessor.GetNamespaceRegex()).Groups[1].Value;
 
             }
         }

@@ -11,8 +11,7 @@ using System.Resources;
 using System.Reflection;
 using System.Globalization;
 using TinyIoC;
-
-
+using QueryFirst.CodeProcessors;
 
 namespace QueryFirst
 {
@@ -20,6 +19,12 @@ namespace QueryFirst
     {
         private CodeGenerationContext ctx;
         private TinyIoCContainer _tiny;
+        private ICodeProcessor CodeProcessor;
+
+        public void InitCodeProcessor(string projectType)
+        {
+            this.CodeProcessor = WrappersFactory.GetProcessor(projectType);
+        }
 
         public Conductor(Document queryDoc)
         {
@@ -148,7 +153,7 @@ The query {1} may not run and the wrapper has not been regenerated.",
                     Code.Append(wrapper.MakeExecuteNonQueryWithoutConn(ctx));
                     Code.Append(wrapper.MakeExecuteNonQueryWithConn(ctx));
                     Code.Append(wrapper.MakeGetCommandTextMethod(ctx));
-                    Code.Append(ctx.Provider.MakeAddAParameter(ctx));
+                    Code.Append(CodeProcessor.MakeAddAParameter());
 
                     if (makeSelfTest)
                         Code.Append(wrapper.MakeSelfTestMethod(ctx));
