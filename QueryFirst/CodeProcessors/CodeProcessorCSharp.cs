@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace QueryFirst.CodeProcessors
 {
-    public class CSharpProcessor : ICodeProcessor
+    public class CodeProcessorCSharp : ICodeProcessor
     {
         public string GetExtension()
         {

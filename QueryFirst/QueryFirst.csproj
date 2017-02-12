@@ -58,12 +58,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BackwardCompatibility.cs" />
-    <Compile Include="CodeProcessors\CSharpProcessor.cs" />
+    <Compile Include="CodeProcessors\CodeProcessorCSharp.cs" />
     <Compile Include="CodeProcessors\ICodeProcessor.cs" />
-    <Compile Include="CodeProcessors\ProcessorFactory.cs" />
+    <Compile Include="CodeProcessors\ResultVisualBasicClassMaker.cs" />
+    <Compile Include="CodeProcessors\ResultCSharpClassMaker.cs" />
+    <Compile Include="CodeProcessors\WrappersFactory.cs" />
     <Compile Include="CodeProcessors\SignatureVisualBasicMaker.cs" />
     <Compile Include="CodeProcessors\UnsupportedProjectTypeException.cs" />
-    <Compile Include="CodeProcessors\VbProcessor.cs" />
+    <Compile Include="CodeProcessors\CodeProcessorVisualBasic.cs" />
     <Compile Include="CodeProcessors\WrapperVisualBasicClassMaker.cs" />
     <Compile Include="DesignTimeConnectionString.cs" />
     <Compile Include="Providers\IProvider.cs" />
@@ -111,7 +113,7 @@
     <Compile Include="QueryFirstCmd.cs" />
     <Compile Include="QueryFirstCmdPackage.cs" />
     <Compile Include="Conductor.cs" />
-    <Compile Include="CodeProcessors\ResultClassMaker.cs" />
+    <Compile Include="CodeProcessors\IResultClassMaker.cs" />
     <Compile Include="Root.cs" />
     <Compile Include="TinyIoC.cs" />
     <Compile Include="Utils.cs" />

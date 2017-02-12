@@ -1,15 +1,10 @@
-﻿using System;
+﻿using EnvDTE;
+using QueryFirst.CodeProcessors;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TinyIoC;
-using EnvDTE;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Configuration;
-using QueryFirst.TypeMappings;
-using QueryFirst.CodeProcessors;
+using TinyIoC;
 
 namespace QueryFirst
 {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace QueryFirst.CodeProcessors
 {
-    public class VbProcessor : ICodeProcessor
+    public class CodeProcessorVisualBasic : ICodeProcessor
     {
         public string GetExtension()
         {

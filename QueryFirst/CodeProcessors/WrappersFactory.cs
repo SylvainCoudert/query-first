@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace QueryFirst.CodeProcessors
+﻿namespace QueryFirst.CodeProcessors
 {
     public static class WrappersFactory
     {
@@ -13,9 +11,9 @@ namespace QueryFirst.CodeProcessors
             switch (projectKind)
             {
                 case prjKindCSharpProject:
-                    return new CSharpProcessor();
+                    return new CodeProcessorCSharp();
                 case prjKindVBProject:
-                    return new VbProcessor();
+                    return new CodeProcessorVisualBasic();
                 default:
                     throw new UnsupportedProjectTypeException();
             }

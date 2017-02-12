@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EnvDTE;
-using EnvDTE80;
-using System.IO;
-using Microsoft.VisualStudio.CommandBars;
-using System.Resources;
-using System.Reflection;
-using System.Globalization;
-using System.Drawing;
-using TinyIoC;
-using System.Timers;
-using QueryFirst.TypeMappings;
+﻿using EnvDTE;
 using QueryFirst.CodeProcessors;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using TinyIoC;
 
 namespace QueryFirst
 {
