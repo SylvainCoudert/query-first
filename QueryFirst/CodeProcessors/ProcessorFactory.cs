@@ -26,9 +26,9 @@ namespace QueryFirst.CodeProcessors
             switch (projectKind)
             {
                 case prjKindCSharpProject:
-                    return new SignatureMaker();
+                    return new SignatureCSharpMaker();
                 case prjKindVBProject:
-                    return new SignatureMaker();
+                    return new SignatureCSharpMaker();
                 default:
                     throw new UnsupportedProjectTypeException();
             }

@@ -184,15 +184,8 @@ namespace QueryFirst
             {
                 if (string.IsNullOrEmpty(methodSignature))
                 {
-                    StringBuilder sig = new StringBuilder();
-                    int i = 0;
-                    foreach (var qp in Query.QueryParams)
-                    {
-                        sig.Append(qp.CSType + ' ' + qp.CSName + ", ");
-                        i++;
-                    }
-                    //signature trailing comma trimmed in place if not needed. 
-                    methodSignature = sig.ToString();
+
+                    methodSignature = SignatureMaker.MakeSignature(Query.QueryParams);
                 }
                 return methodSignature;
             }
@@ -210,16 +203,7 @@ namespace QueryFirst
             {
                 if (string.IsNullOrEmpty(callingArgs))
                 {
-                    StringBuilder sig = new StringBuilder();
-                    StringBuilder call = new StringBuilder();
-                    foreach (var qp in Query.QueryParams)
-                    {
-                        sig.Append(qp.CSType + ' ' + qp.CSName + ", ");
-                        call.Append(qp.CSName + ", ");
-                    }
-                    //signature trailing comma trimmed in place if needed. 
-                    call.Append("conn"); // calling args always used to call overload with connection
-                    callingArgs = call.ToString();
+                    callingArgs = SignatureMaker.MakeSignature(Query.QueryParams);
                 }
                 return callingArgs;
             }

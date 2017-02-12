@@ -61,6 +61,7 @@
     <Compile Include="CodeProcessors\CSharpProcessor.cs" />
     <Compile Include="CodeProcessors\ICodeProcessor.cs" />
     <Compile Include="CodeProcessors\ProcessorFactory.cs" />
+    <Compile Include="CodeProcessors\SignatureVisualBasicMaker.cs" />
     <Compile Include="CodeProcessors\UnsupportedProjectTypeException.cs" />
     <Compile Include="CodeProcessors\VbProcessor.cs" />
     <Compile Include="CodeProcessors\WrapperVisualBasicClassMaker.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="InsertsAndUpdates\ScaffoldInsertResults.cs">
       <DependentUpon>ScaffoldInsert.sql</DependentUpon>
     </Compile>
-    <Compile Include="CodeProcessors\SignatureMaker.cs" />
+    <Compile Include="CodeProcessors\SignatureCSharpMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultFieldDetails.cs" />
     <Compile Include="QueryFirstCmd.cs" />

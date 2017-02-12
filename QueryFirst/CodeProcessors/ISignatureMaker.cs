@@ -13,5 +13,9 @@
         /// <param name="MethodSignature">Output a comma separated string of typename paramname.</param>
         /// <param name="CallingSignature">Output a comma separated string of just paramname.</param>
         void MakeMethodAndCallingSignatures(List<QueryParamInfo> ParamNamesAndTypes, out string MethodSignature, out string CallingSignature);
+
+        string MakeSignature(List<IQueryParamInfo> ParamNamesAndTypes);
+
+        string MakeCallingArgs(List<IQueryParamInfo> ParamNamesAndTypes);
     }
 }
