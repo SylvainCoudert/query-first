@@ -139,8 +139,9 @@ The query {1} may not run and the wrapper has not been regenerated.",
                     ctx.QueryHasRun = true;
                     StringBuilder Code = new StringBuilder();
 
-                    var wrapper = _tiny.Resolve<IWrapperClassMaker>();
-                    var results = _tiny.Resolve<IResultClassMaker>();
+                    var wrapper = WrappersFactory.GetWrapperClassMaker(ctx.ProjectConfig.Project.Kind);
+                    var results = WrappersFactory.GetResultClassMaker(ctx.ProjectConfig.Project.Kind);
+                    var provider = _tiny.Resolve<IProvider>();
 
                     Code.Append(wrapper.StartNamespace(ctx));
                     Code.Append(wrapper.Usings(ctx));
@@ -153,7 +154,7 @@ The query {1} may not run and the wrapper has not been regenerated.",
                     Code.Append(wrapper.MakeExecuteNonQueryWithoutConn(ctx));
                     Code.Append(wrapper.MakeExecuteNonQueryWithConn(ctx));
                     Code.Append(wrapper.MakeGetCommandTextMethod(ctx));
-                    Code.Append(CodeProcessor.MakeAddAParameter());
+                    Code.Append(provider.MakeAddAParameter(ctx));
 
                     if (makeSelfTest)
                         Code.Append(wrapper.MakeSelfTestMethod(ctx));

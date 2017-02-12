@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using TinyIoC;
+using QueryFirst.CodeProcessors;
 
 namespace QueryFirst.Providers
 {
@@ -120,7 +121,19 @@ namespace QueryFirst.Providers
             }
             return bldr.ToString();
         }
-        public virtual string MakeAddAParameter(CodeGenerationContext ctx)
+
+        public string MakeAddAParameter(CodeGenerationContext ctx)
+        {
+            if (ctx.ProjectConfig.Project.Kind == WrappersFactory.prjKindCSharpProject)
+                return MakeCSAddAParameter();
+            else if (ctx.ProjectConfig.Project.Kind == WrappersFactory.prjKindVBProject)
+                return MakeVBAddAParameter();
+            else
+                throw new UnsupportedProjectTypeException();
+
+        }
+
+        public virtual string MakeCSAddAParameter()
         {
             StringBuilder code = new StringBuilder();
             code.AppendLine("private void AddAParameter(IDbCommand Cmd, string DbType, string DbName, object Value, int Length)\n{");
@@ -134,6 +147,25 @@ namespace QueryFirst.Providers
             code.AppendLine("myParam.Value = Value != null ? Value : DBNull.Value;");
             code.AppendLine("Cmd.Parameters.Add( myParam);");
             code.AppendLine("}");
+
+            return code.ToString();
+
+        }
+
+        public virtual string MakeVBAddAParameter()
+        {
+            StringBuilder code = new StringBuilder();
+            code.AppendLine("Private Sub AddAParameter(Cmd as IDbCommand, DbType as String, DbName as String , Value as Object, Length as Integer)\n");
+            code.AppendLine("Dim MySqldbType = DirectCast(System.Enum.Parse(GetType(SqlDbType), DbType),SqlDbType)");
+            code.AppendLine("Dim myParam As SqlParameter");
+            code.AppendLine("If Length <> 0 Then");
+            code.AppendLine("myParam = new SqlParameter(DbName, MySqldbType, Length)");
+            code.AppendLine("Else");
+            code.AppendLine("myParam = new SqlParameter(DbName, MySqldbType)");
+            code.AppendLine("End If");
+            code.AppendLine("myParam.Value = IIf(Value IsNot Nothing, Value, DBNull.Value)");
+            code.AppendLine("Cmd.Parameters.Add( myParam)");
+            code.AppendLine("End Sub");
 
             return code.ToString();
 

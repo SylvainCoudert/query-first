@@ -46,12 +46,20 @@ namespace QueryFirst.Providers
 
             return queryParams;
         }
-        public override string MakeAddAParameter(CodeGenerationContext ctx)
+        public override string MakeCSAddAParameter()
         {
             StringBuilder code = new StringBuilder();
             code.AppendLine("private void AddAParameter(IDbCommand Cmd, string DbType, string DbName, object Value, int Length)\n{");
             code.AppendLine("((MySql.Data.MySqlClient.MySqlCommand)Cmd).Parameters.AddWithValue(DbName, Value);");
             code.AppendLine("}");
+            return code.ToString();
+        }
+        public override string MakeVBAddAParameter()
+        {
+            StringBuilder code = new StringBuilder();
+            code.AppendLine("Private Sub AddAParameter(Cmd as IDbCommand, DbType as String, DbName as String , Value as Object, Length as Integer)\n");
+            code.AppendLine("(DirectCast(Cmd, MySql.Data.MySqlClient.MySqlCommand)).Parameters.AddWithValue(DbName, Value)");
+            code.AppendLine("EndSub");
             return code.ToString();
         }
         public override List<IQueryParamInfo> FindUndeclaredParameters(string queryText)
