@@ -58,7 +58,7 @@ Imports System.Linq
             code.AppendLine("cmd.CommandText = getCommandText()");
             foreach (var qp in ctx.Query.QueryParams)
             {
-                code.AppendLine("AddAParameter(cmd, \"" + qp.DbType + "\", \"" + qp.DbName + "\", " + qp.CSName + ", " + qp.Length + ")");
+                code.AppendLine("AddAParameter(cmd, \"" + qp.DbType + "\", \"" + qp.DbName + "\", " + qp.VBName + ", " + qp.Length + ")");
             }
             code.AppendLine("using reader = cmd.ExecuteReader()");
             code.AppendLine("While reader.Read()");
@@ -101,7 +101,7 @@ Imports System.Linq
             char[] spaceComma = new char[] { ',', ' ' };
             StringBuilder code = new StringBuilder();
             //ExecuteScalar without connection
-            code.AppendLine("Public Overridable Function ExecuteScalar(" + ctx.MethodSignature.Trim(spaceComma) + ") As " + ctx.ResultFields[0].TypeCs + " Implements " + ctx.InterfaceName + ".ExecuteScalar");
+            code.AppendLine("Public Overridable Function ExecuteScalar(" + ctx.MethodSignature.Trim(spaceComma) + ") As " + ctx.ResultFields[0].TypeVb + " Implements " + ctx.InterfaceName + ".ExecuteScalar");
             code.AppendLine("using conn As IDbConnection= QfRuntimeConnection.GetConnection()");
             code.AppendLine("conn.Open()");
             code.AppendLine("return ExecuteScalar(" + ctx.CallingArgs + ")");
@@ -113,14 +113,14 @@ Imports System.Linq
         {
             StringBuilder code = new StringBuilder();
             // ExecuteScalar() with connection
-            code.AppendLine("Public Overridable Function ExecuteScalar(" + ctx.MethodSignature + "conn As IDbConnection) As " + ctx.ResultFields[0].TypeCs + " Implements " + ctx.InterfaceName + ".ExecuteScalar");
+            code.AppendLine("Public Overridable Function ExecuteScalar(" + ctx.MethodSignature + "conn As IDbConnection) As " + ctx.ResultFields[0].TypeVb + " Implements " + ctx.InterfaceName + ".ExecuteScalar");
             code.AppendLine("Dim cmd As IDbCommand = conn.CreateCommand()");
             code.AppendLine("cmd.CommandText = getCommandText()");
             foreach (var qp in ctx.Query.QueryParams)
             {
-                code.AppendLine("AddAParameter(cmd, \"" + qp.DbType + "\", \"" + qp.DbName + "\", " + qp.CSName + ", " + qp.Length + ")");
+                code.AppendLine("AddAParameter(cmd, \"" + qp.DbType + "\", \"" + qp.DbName + "\", " + qp.VBName + ", " + qp.Length + ")");
             }
-            code.AppendLine("return DirectCast(cmd.ExecuteScalar()," + ctx.ResultFields[0].TypeCsShort + ")");
+            code.AppendLine("return DirectCast(cmd.ExecuteScalar()," + ctx.ResultFields[0].TypeVbShort + ")");
             code.AppendLine("End Function");
             return code.ToString();
 
@@ -147,7 +147,7 @@ Imports System.Linq
             code.AppendLine("cmd.CommandText = getCommandText()");
             foreach (var qp in ctx.Query.QueryParams)
             {
-                code.AppendLine("AddAParameter(cmd, \"" + qp.DbType + "\", \"" + qp.DbName + "\", " + qp.CSName + ", " + qp.Length + ")");
+                code.AppendLine("AddAParameter(cmd, \"" + qp.DbType + "\", \"" + qp.DbName + "\", " + qp.VBName + ", " + qp.Length + ")");
             }
             code.AppendLine("return cmd.ExecuteNonQuery()");
             code.AppendLine("End Function");
@@ -166,7 +166,7 @@ Imports System.Linq
             foreach (var col in ctx.ResultFields)
             {
                 code.AppendLine("If record(" + j + ") IsNot Nothing And Not record.IsDBNull(" + j + ") Then");
-                code.AppendLine("returnVal." + col.CSColumnName + " =  DirectCast(record(" + j++ + "), " + col.TypeCsShort + ")");
+                code.AppendLine("returnVal." + col.CSColumnName + " =  DirectCast(record(" + j++ + "), " + col.TypeVbShort + ")");
                 code.AppendLine("End If");
             }
             // call OnLoad method in user's half of partial class
@@ -224,8 +224,8 @@ Imports System.Linq
                 code.AppendLine("Function Execute(" + ctx.MethodSignature + "conn As IDbConnection) As IEnumerable(Of " + ctx.ResultClassName + ")");
                 code.AppendLine("Function GetOne(" + ctx.MethodSignature.Trim(spaceComma) + ") As " + ctx.ResultClassName);
                 code.AppendLine("Function GetOne(" + ctx.MethodSignature + "conn As IDbConnection) As " + ctx.ResultClassName);
-                code.AppendLine("Function ExecuteScalar(" + ctx.MethodSignature.Trim(spaceComma) + ") As " + ctx.ResultFields[0].TypeCs);
-                code.AppendLine("Function ExecuteScalar(" + ctx.MethodSignature + "conn As IDbConnection) As " + ctx.ResultFields[0].TypeCs);
+                code.AppendLine("Function ExecuteScalar(" + ctx.MethodSignature.Trim(spaceComma) + ") As " + ctx.ResultFields[0].TypeVb);
+                code.AppendLine("Function ExecuteScalar(" + ctx.MethodSignature + "conn As IDbConnection) As " + ctx.ResultFields[0].TypeVb);
                 code.AppendLine("Function Create(record As IDataRecord) As " + ctx.ResultClassName);
             }
             code.AppendLine("Function ExecuteNonQuery(" + ctx.MethodSignature.Trim(spaceComma) + ") As Integer");

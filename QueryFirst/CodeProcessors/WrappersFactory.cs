@@ -26,7 +26,7 @@
                 case prjKindCSharpProject:
                     return new SignatureCSharpMaker();
                 case prjKindVBProject:
-                    return new SignatureCSharpMaker();
+                    return new SignatureVisualBasicMaker();
                 default:
                     throw new UnsupportedProjectTypeException();
             }

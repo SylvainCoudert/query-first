@@ -86,6 +86,7 @@ namespace QueryFirst
                                 break;
                             case "DataType":
                                 qf.TypeCs = SchemaTable.Rows[i].Field<System.Type>(j).FullName;
+                                qf.TypeVb = SchemaTable.Rows[i].Field<System.Type>(j).FullName;
                                 break;
                             case "AllowDBNull":
                                 qf.AllowDBNull = SchemaTable.Rows[i].Field<bool>(j);

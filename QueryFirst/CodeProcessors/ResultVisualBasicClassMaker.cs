@@ -13,7 +13,7 @@ namespace QueryFirst.CodeProcessors
         }
         public virtual string MakeProperty(ResultFieldDetails fld)
         {
-            return string.Format("Public Property {0} As {1} '({2} {3})" + nl, fld.CSColumnName, fld.TypeCsShort, fld.TypeDb, fld.AllowDBNull ? "null" : "not null");
+            return string.Format("Public Property {0} As {1} '({2} {3})" + nl, fld.CSColumnName, fld.TypeVbShort, fld.TypeDb, fld.AllowDBNull ? "null" : "not null");
         }
 
         public virtual string CloseClass()

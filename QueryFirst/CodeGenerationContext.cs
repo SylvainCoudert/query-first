@@ -11,32 +11,22 @@ namespace QueryFirst
     public class CodeGenerationContext
     {
         #region Code Processors
-        private ICodeProcessor _codeProcessor;
         public ICodeProcessor CodeProcessor
         {
             get
             {
-                if(_codeProcessor == null)
-                {
-                    _codeProcessor = WrappersFactory.GetProcessor(config.Project.Kind);
-                }
-                return _codeProcessor;
+                return WrappersFactory.GetProcessor(config.Project.Kind);
             }
         }
 
         protected IProvider provider;
         public IProvider Provider { get { return provider; } }
-
-        protected ISignatureMaker _signatureMaker;
+        
         public ISignatureMaker SignatureMaker
         {
             get
             {
-                if (_signatureMaker == null)
-                {
-                    _signatureMaker = WrappersFactory.GetSignatureMaker(config.Project.Kind);
-                }
-                return _signatureMaker;
+                return WrappersFactory.GetSignatureMaker(config.Project.Kind);
             }
         }
         #endregion
@@ -198,7 +188,7 @@ namespace QueryFirst
             {
                 if (string.IsNullOrEmpty(callingArgs))
                 {
-                    callingArgs = SignatureMaker.MakeSignature(Query.QueryParams);
+                    callingArgs = SignatureMaker.MakeCallingArgs(Query.QueryParams);
                 }
                 return callingArgs;
             }

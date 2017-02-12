@@ -142,8 +142,8 @@ The query {1} may not run and the wrapper has not been regenerated.",
                     var wrapper = WrappersFactory.GetWrapperClassMaker(ctx.ProjectConfig.Project.Kind);
                     var results = WrappersFactory.GetResultClassMaker(ctx.ProjectConfig.Project.Kind);
 
-                    Code.Append(wrapper.StartNamespace(ctx));
                     Code.Append(wrapper.Usings(ctx));
+                    Code.Append(wrapper.StartNamespace(ctx));
                     if (makeSelfTest)
                         Code.Append(wrapper.SelfTestUsings(ctx));
                     if (ctx.ResultFields != null && ctx.ResultFields.Count > 0)

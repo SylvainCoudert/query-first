@@ -29,7 +29,9 @@ namespace QueryFirst
         public string ProviderSpecificDataType { get; set; }
         public string TypeDb { get; set; }
         public string TypeCs { get; set; }
-        public string TypeCsShort { get { return System2Alias.Map(TypeCs); } }
+        public string TypeCsShort { get { return System2Alias.MapCS(TypeCs); } }
+        public string TypeVb { get; set; }
+        public string TypeVbShort { get { return System2Alias.MapVB(TypeVb); } }
         public string UdtAssemblyQualifiedName { get; set; }
         public int NewVersionedProviderType { get; set; }
         public bool IsColumnSet { get; set; }
