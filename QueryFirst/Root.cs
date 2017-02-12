@@ -36,9 +36,9 @@ namespace QueryFirst
             myDocumentEvents.DocumentSaved += myDocumentEvents_DocumentSaved;
             myDocumentEvents.DocumentOpened += MyDocumentEvents_DocumentOpened;
             CSharpProjectItemsEvents = (ProjectItemsEvents)dte.Events.GetObject("CSharpProjectItemsEvents");
-            VisualBasicProjectItemsEvents = (ProjectItemsEvents)dte.Events.GetObject("VisualBasicProjectItemsEvents");
+            //VisualBasicProjectItemsEvents = (ProjectItemsEvents)dte.Events.GetObject("VisualBasicProjectItemsEvents");
             CSharpProjectItemsEvents.ItemRenamed += CSharpItemRenamed;
-            VisualBasicProjectItemsEvents.ItemRenamed += VisualBasicItemRenamed;
+            //VisualBasicProjectItemsEvents.ItemRenamed += VisualBasicItemRenamed;
             myEvents.SolutionEvents.Opened += SolutionEvents_Opened;
             myEvents.BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
 
