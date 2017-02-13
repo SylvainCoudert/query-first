@@ -107,7 +107,7 @@ namespace QueryFirst
             get
             {
                 EnvDTE.Project vsProject = queryDoc.ProjectItem.ContainingProject;
-                return vsProject.Properties.Item("DefaultNamespace").Value.ToString() + '.' + PathFromAppRoot.Replace('\\', '.');
+                return CodeProcessor.NameAndPathForManifestStream(vsProject, queryDoc);
             }
         }
         /// <summary>

@@ -17,6 +17,7 @@ Imports System.IO
 Imports System.Collections.Generic
 Imports System.Configuration
 Imports System.Linq
+Imports System.Runtime.Serialization
 
 ";
 

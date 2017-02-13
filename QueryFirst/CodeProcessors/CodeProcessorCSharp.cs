@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using EnvDTE;
+using System.Text;
 
 namespace QueryFirst.CodeProcessors
 {
@@ -36,6 +37,14 @@ namespace QueryFirst.CodeProcessors
 
             return code.ToString();
 
+        }
+
+        public string NameAndPathForManifestStream(Project vsProject, Document queryDoc)
+        {
+            string fullNameAndPath = (string)queryDoc.ProjectItem.Properties.Item("FullPath").Value;
+            string PathFromAppRoot = fullNameAndPath.Substring(queryDoc.ProjectItem.ContainingProject.Properties.Item("FullPath").Value.ToString().Length);
+
+            return vsProject.Properties.Item("DefaultNamespace").Value.ToString() + '.' + PathFromAppRoot.Replace('\\', '.');
         }
     }
 }

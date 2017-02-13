@@ -297,7 +297,7 @@ namespace QueryFirst.Providers
                     return "byte[]";
                 case "bit":
                     DBTypeNormalized = "Bit";
-                    return nullable ? "bool?" : "bool";
+                    return nullable ? "Boolean?" : "Boolean";
                 case "date":
                     DBTypeNormalized = "Date";
                     return nullable ? "DateTime?" : "DateTime";

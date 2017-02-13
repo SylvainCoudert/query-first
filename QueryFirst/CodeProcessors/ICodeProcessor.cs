@@ -1,4 +1,6 @@
-﻿namespace QueryFirst.CodeProcessors
+﻿using EnvDTE;
+
+namespace QueryFirst.CodeProcessors
 {
     public interface ICodeProcessor
     {
@@ -9,5 +11,7 @@
         string GetResultClassRegex();
 
         string GetNamespaceRegex();
+
+        string NameAndPathForManifestStream(Project vsProject, Document queryDoc);
     }
 }
